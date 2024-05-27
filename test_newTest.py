@@ -40,10 +40,10 @@ class TestNewTest():
       element = self.driver.find_element(By.CSS_SELECTOR, "body")
       actions = ActionChains(self.driver)
       actions.move_to_element(element, 0, 0).perform()
-      for i in range(0, 5):  # try .. except 사이의 코드 실행 중 exception 발생하면 5번 반복합니다.
-        try:
-            # 실행해야 하는 코드
-            break
-        except Exception as e:
-            print(f"Exception [{e}] - Retrying")
-            time.sleep(2)
+      # for i in range(0, 5):  # try .. except 사이의 코드 실행 중 exception 발생하면 5번 반복합니다.
+      #   try:
+      #       # 실행해야 하는 코드
+      #       break
+      #   except Exception as e:
+      #       print(f"Exception [{e}] - Retrying")
+      #       time.sleep(2)
