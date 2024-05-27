@@ -70,40 +70,49 @@ class TestUntitled():
       print("새 글 버튼 비정상", e)
 
     try:
-      # 제목 입력란에 텍스트 입력
-      self.driver.find_element(By.ID, "subject").click()
-      self.driver.find_element(By.ID, "subject").send_keys("rkskekfkakqktk")
-      print("제목 입력 정상")
+        # 제목 입력란에 "가나다라" 입력
+        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.ID, "subject"))).send_keys("가나다라")
+        print("제목 정상")
     except Exception as e:
-      # 예외가 발생했을 때 처리할 코드
-      print("제목 입력 비정상", e)
+        # 예외가 발생했을 때 처리할 코드
+        print("제목 비정상", e)
 
     try:
-      # 글 게시 버튼을 클릭하기 전에 대기
-      WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.LINK_TEXT, "HTML")))
+        # 공개 범위 설정을 클릭하여 드롭다운 메뉴 표시
+        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "#publicSettingPart > td"))).click()
 
-      # 글 게시 버튼 클릭
-      self.driver.switch_to.frame(0)
-      self.driver.find_element(By.LINK_TEXT, "HTML").click()
+        # iframe으로 전환
+        self.driver.switch_to.frame(0)
+        #
+        # # iframe 내의 body 요소 클릭
+        # WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "body"))).click()
+        #
+        # # 게시글 내용 입력
+        # self.driver.find_element(By.CSS_SELECTOR, "body").send_keys("마바사")
+        #
+        # # iframe에서 기본 컨텐츠로 전환
+        # self.driver.switch_to.default_content()
+        #
+        # # 고정 옵션을 선택
+        # WebDriverWait(self.driver, 10).until(
+        #     EC.element_to_be_clickable((By.CSS_SELECTOR, "#stickableOption > td"))).click()
+        #
+        # # iframe으로 다시 전환
+        # self.driver.switch_to.frame(0)
+        #
+        # # iframe 내의 body 요소 클릭
+        # WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, "body"))).click()
 
-      # # 대기 후에 나타난 다음 클릭할 디자인 버튼을 찾기 위해 다시 default content로 변경
-      # self.driver.switch_to.default_content()
-      #
-      # # 디자인 버튼을 클릭하기 전에 대기
-      # WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.LINK_TEXT, "디자인")))
-      #
-      # # 디자인 버튼 클릭
-      # self.driver.find_element(By.LINK_TEXT, "디자인").click()
+        # 게시글 내용 입력
+        self.driver.find_element(By.CSS_SELECTOR, "body").send_keys("마바사")
 
-      # 글 작성 영역에 내용 입력
-      self.driver.switch_to.frame(0)
-      self.driver.find_element(By.ID, "dext5_source_editor").send_keys("<p>자동화자동화<br></p>")
+        # iframe에서 기본 컨텐츠로 전환
+        self.driver.switch_to.default_content()
 
-      # default content로 다시 변경
-      self.driver.switch_to.default_content()
+        # 게시글 게시 버튼 클릭
+        WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".btn_major"))).click()
 
-      # 글 작성 완료 버튼 클릭
-      WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.CSS_SELECTOR, ".btn_major"))).click()
+        print("게시글 정상 작성")
 
     except Exception as e:
       # 예외가 발생했을 때 처리할 코드
